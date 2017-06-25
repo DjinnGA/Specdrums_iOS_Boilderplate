@@ -13,8 +13,8 @@
 		C8668B8E1D8E5FCC0009D10D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8668B8C1D8E5FCC0009D10D /* Main.storyboard */; };
 		C8668B901D8E5FCC0009D10D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8668B8F1D8E5FCC0009D10D /* Assets.xcassets */; };
 		C8668B931D8E5FCC0009D10D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8668B911D8E5FCC0009D10D /* LaunchScreen.storyboard */; };
-		C8668B9E1D8E5FCD0009D10D /* OpenSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8668B9D1D8E5FCD0009D10D /* OpenSourceTests.m */; };
-		C8668BA91D8E5FCD0009D10D /* OpenSourceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8668BA81D8E5FCD0009D10D /* OpenSourceUITests.m */; };
+		C8668B9E1D8E5FCD0009D10D /* SpecdrumsBPTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8668B9D1D8E5FCD0009D10D /* SpecdrumsBPTests.m */; };
+		C8668BA91D8E5FCD0009D10D /* SpecdrumsBPUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C8668BA81D8E5FCD0009D10D /* SpecdrumsBPUITests.m */; };
 		C8668BBE1D8E61DE0009D10D /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = C8668BBA1D8E61DE0009D10D /* Colors.m */; };
 		C89B9DEF1D9F2847005F8B77 /* Point3D.m in Sources */ = {isa = PBXBuildFile; fileRef = C89B9DEE1D9F2847005F8B77 /* Point3D.m */; };
 		C8B500F81EFF7F3C00B87497 /* Specdrums.m in Sources */ = {isa = PBXBuildFile; fileRef = C8B500EF1EFF7F3C00B87497 /* Specdrums.m */; };
@@ -30,14 +30,14 @@
 			containerPortal = C8668B781D8E5FCC0009D10D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = C8668B7F1D8E5FCC0009D10D;
-			remoteInfo = OpenSource;
+			remoteInfo = SpecdrumsBP;
 		};
 		C8668BA51D8E5FCD0009D10D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C8668B781D8E5FCC0009D10D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = C8668B7F1D8E5FCC0009D10D;
-			remoteInfo = OpenSource;
+			remoteInfo = SpecdrumsBP;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -53,10 +53,10 @@
 		C8668B921D8E5FCC0009D10D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8668B941D8E5FCC0009D10D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8668B991D8E5FCD0009D10D /* SpecdrumsBoilerplate.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpecdrumsBoilerplate.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C8668B9D1D8E5FCD0009D10D /* OpenSourceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenSourceTests.m; sourceTree = "<group>"; };
+		C8668B9D1D8E5FCD0009D10D /* SpecdrumsBPTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpecdrumsBPTests.m; sourceTree = "<group>"; };
 		C8668B9F1D8E5FCD0009D10D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8668BA41D8E5FCD0009D10D /* SpecdrumsBoilerplate.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpecdrumsBoilerplate.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C8668BA81D8E5FCD0009D10D /* OpenSourceUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenSourceUITests.m; sourceTree = "<group>"; };
+		C8668BA81D8E5FCD0009D10D /* SpecdrumsBPUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpecdrumsBPUITests.m; sourceTree = "<group>"; };
 		C8668BAA1D8E5FCD0009D10D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8668BB91D8E61DE0009D10D /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		C8668BBA1D8E61DE0009D10D /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
@@ -103,8 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				C8668B821D8E5FCC0009D10D /* SpecdrumsBP */,
-				C8668B9C1D8E5FCD0009D10D /* OpenSourceTests */,
-				C8668BA71D8E5FCD0009D10D /* OpenSourceUITests */,
+				C8668B9C1D8E5FCD0009D10D /* SpecdrumsBPTests */,
+				C8668BA71D8E5FCD0009D10D /* SpecdrumsBPUITests */,
 				C8668B811D8E5FCC0009D10D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -134,7 +134,7 @@
 				C8668B831D8E5FCC0009D10D /* Supporting Files */,
 			);
 			name = SpecdrumsBP;
-			path = OpenSource;
+			path = SpecdrumsBP;
 			sourceTree = "<group>";
 		};
 		C8668B831D8E5FCC0009D10D /* Supporting Files */ = {
@@ -145,22 +145,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C8668B9C1D8E5FCD0009D10D /* OpenSourceTests */ = {
+		C8668B9C1D8E5FCD0009D10D /* SpecdrumsBPTests */ = {
 			isa = PBXGroup;
 			children = (
-				C8668B9D1D8E5FCD0009D10D /* OpenSourceTests.m */,
+				C8668B9D1D8E5FCD0009D10D /* SpecdrumsBPTests.m */,
 				C8668B9F1D8E5FCD0009D10D /* Info.plist */,
 			);
-			path = OpenSourceTests;
+			path = SpecdrumsBPTests;
 			sourceTree = "<group>";
 		};
-		C8668BA71D8E5FCD0009D10D /* OpenSourceUITests */ = {
+		C8668BA71D8E5FCD0009D10D /* SpecdrumsBPUITests */ = {
 			isa = PBXGroup;
 			children = (
-				C8668BA81D8E5FCD0009D10D /* OpenSourceUITests.m */,
+				C8668BA81D8E5FCD0009D10D /* SpecdrumsBPUITests.m */,
 				C8668BAA1D8E5FCD0009D10D /* Info.plist */,
 			);
-			path = OpenSourceUITests;
+			path = SpecdrumsBPUITests;
 			sourceTree = "<group>";
 		};
 		C8668BB61D8E61D40009D10D /* Specdrums Interface */ = {
@@ -200,7 +200,7 @@
 			dependencies = (
 			);
 			name = SpecdrumsBoilerplate;
-			productName = OpenSource;
+			productName = SpecdrumsBP;
 			productReference = C8668B801D8E5FCC0009D10D /* SpecdrumsBoilerplate.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -218,7 +218,7 @@
 				C8668B9B1D8E5FCD0009D10D /* PBXTargetDependency */,
 			);
 			name = SpecdrumsBoilerplateTests;
-			productName = OpenSourceTests;
+			productName = SpecdrumsBPTests;
 			productReference = C8668B991D8E5FCD0009D10D /* SpecdrumsBoilerplate.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -236,7 +236,7 @@
 				C8668BA61D8E5FCD0009D10D /* PBXTargetDependency */,
 			);
 			name = SpecdrumsBoilerplateUITests;
-			productName = OpenSourceUITests;
+			productName = SpecdrumsBPUITests;
 			productReference = C8668BA41D8E5FCD0009D10D /* SpecdrumsBoilerplate.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
@@ -331,7 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8668B9E1D8E5FCD0009D10D /* OpenSourceTests.m in Sources */,
+				C8668B9E1D8E5FCD0009D10D /* SpecdrumsBPTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,7 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8668BA91D8E5FCD0009D10D /* OpenSourceUITests.m in Sources */,
+				C8668BA91D8E5FCD0009D10D /* SpecdrumsBPUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,7 +466,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = OpenSource/Info.plist;
+				INFOPLIST_FILE = SpecdrumsBP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Specdrums.Boilderplate;
 				PRODUCT_NAME = SpecdrumsBoilerplate;
@@ -477,7 +477,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = OpenSource/Info.plist;
+				INFOPLIST_FILE = SpecdrumsBP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Specdrums.Boilderplate;
 				PRODUCT_NAME = SpecdrumsBoilerplate;
@@ -488,9 +488,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = OpenSourceTests/Info.plist;
+				INFOPLIST_FILE = SpecdrumsBPTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Specdrums.OpenSourceTests;
+				PRODUCT_BUNDLE_IDENTIFIER = Specdrums.SpecdrumsBPTests;
 				PRODUCT_NAME = SpecdrumsBoilerplate;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpecdrumsBoilerplate.app/SpecdrumsBoilerplate";
 			};
@@ -500,9 +500,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = OpenSourceTests/Info.plist;
+				INFOPLIST_FILE = SpecdrumsBPTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Specdrums.OpenSourceTests;
+				PRODUCT_BUNDLE_IDENTIFIER = Specdrums.SpecdrumsBPTests;
 				PRODUCT_NAME = SpecdrumsBoilerplate;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpecdrumsBoilerplate.app/SpecdrumsBoilerplate";
 			};
@@ -511,22 +511,22 @@
 		C8668BB41D8E5FCD0009D10D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = OpenSourceUITests/Info.plist;
+				INFOPLIST_FILE = SpecdrumsBPUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Specdrums.OpenSourceUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = Specdrums.SpecdrumsBPUITests;
 				PRODUCT_NAME = SpecdrumsBoilerplate;
-				TEST_TARGET_NAME = OpenSource;
+				TEST_TARGET_NAME = SpecdrumsBP;
 			};
 			name = Debug;
 		};
 		C8668BB51D8E5FCD0009D10D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = OpenSourceUITests/Info.plist;
+				INFOPLIST_FILE = SpecdrumsBPUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Specdrums.OpenSourceUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = Specdrums.SpecdrumsBPUITests;
 				PRODUCT_NAME = SpecdrumsBoilerplate;
-				TEST_TARGET_NAME = OpenSource;
+				TEST_TARGET_NAME = SpecdrumsBP;
 			};
 			name = Release;
 		};

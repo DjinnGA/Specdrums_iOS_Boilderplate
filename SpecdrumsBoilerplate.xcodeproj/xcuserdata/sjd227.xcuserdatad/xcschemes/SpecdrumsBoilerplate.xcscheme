@@ -28,26 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C8668B981D8E5FCD0009D10D"
-               BuildableName = "SpecdrumsBoilerplate.xctest"
-               BlueprintName = "SpecdrumsBoilerplateTests"
-               ReferencedContainer = "container:SpecdrumsBoilerplate.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C8668BA31D8E5FCD0009D10D"
-               BuildableName = "SpecdrumsBoilerplate.xctest"
-               BlueprintName = "SpecdrumsBoilerplateUITests"
-               ReferencedContainer = "container:SpecdrumsBoilerplate.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
