@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:OpenSource.xcodeproj">
+      location = "self:/Users/sjd227/Documents/Git/Specdrums/OpenSource/SpecdrumsBoilerplate.xcodeproj">
    </FileRef>
 </Workspace>

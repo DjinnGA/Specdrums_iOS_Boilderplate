@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
             endingLineNumber = "51"
-            landmarkName = "-numberOfRingsIsNow:"
+            landmarkName = "-assignBlinkColor:toRing:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
             endingLineNumber = "41"
-            landmarkName = "-scanForPeripherals"
+            landmarkName = "-getConnectedPeripherals"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -127,7 +127,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "77"
             endingLineNumber = "77"
-            landmarkName = "-removeRingAtIdx:"
+            landmarkName = "-ringOfIdx:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

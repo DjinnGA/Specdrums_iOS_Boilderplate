@@ -10,12 +10,9 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "Battery.h"
 
-@protocol RingDelegate
+@protocol RingDelegate;
 
-- (void) didReceiveData:(NSData*)newData fromPeripheral:(CBPeripheral*)peripheral forCharacteristic:(CBCharacteristic*)characteristic;
-- (void) didReadHardwareRevisionString:(NSString*) string;
-- (void) didEncounterError:(NSString*) error;
-- (void) didFinishFindingCharacteristics;
+@interface Ring : NSObject <CBPeripheralDelegate>
 
 // enums
 typedef enum {
@@ -38,15 +35,23 @@ typedef enum
     RING_WAS_CHARGED,
 } RingPowerStateCmd;
 
-@end
+typedef enum
+{
+    MIDI_MODE = 0,
+    SPECDRUMS_MODE,
+    INTERFACE_MODE,
+} AppMode;
 
-
-
-@interface Ring : NSObject <CBPeripheralDelegate>
+typedef enum {
+    NO_TAP = 0,
+    SOFT_TAP,
+    NORMAL_TAP,
+} TapIntensity;
 
 @property CBPeripheral *peripheral;
 @property Battery *battery;
 @property id<RingDelegate> delegate;
+@property BOOL wasInitialized;
 
 + (CBUUID*)specdrumsRingServiceUUID;
 + (CBUUID*)tapCharacteristicUUID;
@@ -54,11 +59,27 @@ typedef enum
 + (CBUUID*)batteryCharacteristicUUID;
 + (CBUUID*)rgbLedStateCharacteristicUUID;
 + (CBUUID*)offCharacteristicUUID;
++ (CBUUID*)appModeCharacteristicUUID;
++ (CBUUID*)pitchSetCharacteristicUUID;
++ (CBUUID*)colorSetCharacteristicUUID;
++ (CBUUID*)paramsCharacteristicUUID;
 
 - (Ring*)initWithPeripheral:(CBPeripheral*)peripheral delegate:(id<RingDelegate>) delegate;
 - (void) writeRawData:(NSData*)newData forCharacteristicUUID:(CBUUID*)UUID;
 - (void) didConnect;
 - (void) didDisconnect;
+
+
+
+
+@end
+
+@protocol RingDelegate
+
+- (void) didReceiveData:(NSData*)newData fromPeripheral:(CBPeripheral*)peripheral forCharacteristic:(CBCharacteristic*)characteristic;
+- (void) didReadHardwareRevisionString:(NSString*) string;
+- (void) didEncounterError:(NSString*) error;
+- (void) didFinishFindingCharacteristicsForRing:(Ring*)ring;
 
 
 @end

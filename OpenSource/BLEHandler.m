@@ -14,6 +14,8 @@
 
 @end
 
+Ring *_ringBeingConnected;
+
 
 @implementation BLEHandler
 
@@ -33,6 +35,25 @@
     }
     return self;
 }
+
+- (NSArray*)getConnectedPeripherals
+{
+    NSArray *connectedPeripherals = [cm retrieveConnectedPeripheralsWithServices:@[Ring.specdrumsRingServiceUUID]];
+    
+    // connect each peripheral
+    for (CBPeripheral *p in connectedPeripherals)
+    {
+        // see if a ring has it
+        NSArray<CBPeripheral*> *peripherals = [self.rings valueForKey:@"peripheral"];
+        if(![peripherals containsObject:p])
+        {
+            [self connectPeripheral:p];
+        }
+    }
+    
+    return connectedPeripherals;
+}
+
 
 - (void)scanForPeripherals{
     
@@ -70,22 +91,198 @@
     return ringIdx;
 }
 
--(void)removeRingAtIdx:(int)idx
+-(void)removeRing:(Ring *)ring
 {
     // tell ring to turn off
-    Ring *ring = [self ringOfIdx:idx];
     RingPowerStateCmd cmd = RING_POWER_DOWN;
     uint8_t bytes[1]= {cmd};
     NSData *data= [[NSData alloc ]initWithBytes:bytes length:1];
     [self sendData:data toPeripheral:ring forCharacteristicUUID:[Ring offCharacteristicUUID]];
 }
 
--(void)sendRGBLEDState:(RGBLEDState)state forRingAtIdx:(int)idx
+-(void)removeRingAtIdx:(int)idx
+{
+    // tell ring to turn off
+    Ring *ring = [self ringOfIdx:idx];
+    [self removeRing:ring];
+}
+
+-(void)sendRGBLEDState:(RGBLEDState)state forRing:(Ring*)ring
 {
     uint8_t bytes[1]= {state};
     NSData *data= [[NSData alloc ]initWithBytes:bytes length:1];
-    Ring *ring = [self ringOfIdx:idx];
     [self sendData:data toPeripheral:ring forCharacteristicUUID:[Ring rgbLedStateCharacteristicUUID]];
+
+}
+
+-(void)sendRGBLEDState:(RGBLEDState)state forRingAtIdx:(int)idx
+{
+    Ring *ring = [self ringOfIdx:idx];
+    [self sendRGBLEDState:state forRing:ring];
+}
+
+-(void)sendAppMode:(AppMode)appMode forRingAtIdx:(int)idx
+{
+
+    Ring *ring = [self ringOfIdx:idx];
+    [self sendAppMode:appMode toRing:ring];
+}
+
++(uint8_t)minTapThresh
+{
+    return 0x01;
+}
+
++(uint8_t)maxTapThresh
+{
+    return 0x7F;
+}
+
++(uint8_t)minTimeLimit
+{
+    return 0x01;
+}
+
++(uint8_t)maxTimeLimit
+{
+    return 0x7F;
+}
+
++(BOOL)defaultHP
+{
+    return YES;
+}
+
++(float)defaultTapThresh
+{
+    float f = (((float) 0x1E) - ((float)[BLEHandler minTapThresh])) / ( ((float)[BLEHandler maxTapThresh]) - ((float)[BLEHandler minTapThresh]) );
+    return f;
+}
+
++(float)defaultTimeLimit
+{
+    float f = (((float) 0x64) - ((float)[BLEHandler minTimeLimit])) / ( ((float)[BLEHandler maxTimeLimit]) - ((float)[BLEHandler minTimeLimit]) );
+    return f;
+}
+
+-(uint8_t)tapThreshForFloat:(float)f
+
+
+{
+    float fval = f * ( ((float)[BLEHandler maxTapThresh]) - ((float)[BLEHandler minTapThresh]))  +   (float)[BLEHandler minTapThresh];
+    uint8_t val = ((uint8_t) (fval));
+    return val;
+}
+
+-(uint8_t)timeLimitForFloat:(float)f
+{
+    uint8_t val = ((uint8_t) (f * ( ((float)[BLEHandler maxTimeLimit]) - ((float)[BLEHandler minTimeLimit]))))  +   [BLEHandler minTimeLimit];
+    return val;
+}
+
+
+
+-(void)sendHP:(BOOL)hpFilterOn tapThresh:(float)tapThresh timeLimit:(float)timeLimit forRingAtIdx:(int)idx
+{
+    Ring *ring = [self ringOfIdx:idx];
+    
+    [self sendHP:hpFilterOn tapThresh:tapThresh timeLimit:timeLimit toRing:ring];
+    
+}
+
+-(void)sendHP:(BOOL)hpFilterOn tapThresh:(float)tapThresh timeLimit:(float)timeLimit toRing:(Ring*)ring
+{
+    // get threshold + limit based on min / max
+    uint8_t b1 = (uint8_t)hpFilterOn;
+    uint8_t b2 = [self tapThreshForFloat:tapThresh];
+    uint8_t b3 = [self timeLimitForFloat:timeLimit];
+    uint8_t bytes[3] = {b1, b2, b3};
+    NSData *data= [[NSData alloc ]initWithBytes:bytes length:3];
+    NSLog(@"Sending HP: %d, thresh: %d, limit: %d",b1,b2,b3);
+    [self sendData:data toPeripheral:ring forCharacteristicUUID:[Ring paramsCharacteristicUUID]];
+}
+
+- (void)sendAppMode:(AppMode)appMode toRing:(Ring*)ring
+{
+    uint8_t bytes[1]= {appMode};
+    NSData *data= [[NSData alloc ]initWithBytes:bytes length:1];
+    [self sendData:data toPeripheral:ring forCharacteristicUUID:[Ring appModeCharacteristicUUID]];
+}
+
+-(void)setPitches:(NSMutableArray<NSNumber*>*)pitches toSample:(int)sampleIdx
+{
+    // pack bytes
+    uint8_t sample = (uint8_t)(sampleIdx+1);
+    uint8_t bytes[9]= {sample,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+    for (int i = 0; i <[pitches count] && i<8;i++)
+    {
+        int p = [[pitches objectAtIndex:i] intValue] + 1; // add 1 when packing
+        uint8_t b = (uint8_t)p;
+        bytes[i+1] = b;
+    }
+    NSData *data= [[NSData alloc ]initWithBytes:bytes length:9];
+    
+    // send data to every connected peripheral
+    for (Ring *ring in self.rings)
+    {
+        [ring writeRawData:data forCharacteristicUUID:[Ring pitchSetCharacteristicUUID]];
+    }
+    
+    NSLog(@"sent pitch set to each ring");
+}
+
+-(void)removeSample:(int)sampleIdx
+{
+    // set empty pitches for this sample Int to remove it on ring
+    [self setPitches:[[NSMutableArray alloc]init] toSample:sampleIdx];
+}
+
+-(uint16_t) hsvCoord2uint16:(float)x
+{
+    float max16Bit = 65535.0;
+    x = x+1;
+    uint16_t x16 =  (uint16_t) (x * (max16Bit/2));
+    return x16;
+    
+}
+
+-(void)setColorWithX:(float)x y:(float)y z:(float)z toSample:(int)sampleIdx
+{
+    // x,y, and z are in range [-1,1]...
+    
+    uint8_t sample = (uint8_t)(sampleIdx+1);
+    
+    // get uint8 values
+    uint16_t x16 = [self hsvCoord2uint16:x];
+    uint8_t xh = x16>>8;
+    uint8_t xl = x16 & 0xff;
+    
+    uint16_t y16 = [self hsvCoord2uint16:y];
+    uint8_t yh = y16>>8;
+    uint8_t yl = y16 & 0xff;
+    
+    uint16_t z16 = [self hsvCoord2uint16:z];
+    uint8_t zh = z16>>8;
+    uint8_t zl = z16 & 0xff;
+    
+    // pack bytes
+    uint8_t bytes[9]= {sample,xh,xl,yh,yl,zh,zl};
+    NSData *data= [[NSData alloc ]initWithBytes:bytes length:9];
+    
+    // send data to every connected ring
+    for (Ring *ring in self.rings)
+    {
+        [ring writeRawData:data forCharacteristicUUID:[Ring colorSetCharacteristicUUID]];
+    }
+    NSLog(@"sent color set to each ring");
+    
+}
+
+-(void)removeAllSamples
+{
+    // remove all samples by sending 0 through colorset
+    [self setColorWithX:0 y:0 z:0 toSample:-1];
+    
 }
 
 - (Ring*)specdrumsPeripheralForCBPeripheral:(CBPeripheral*)p
@@ -104,7 +301,7 @@
     [cm cancelPeripheralConnection:peripheral];
     
     //Connect
-    [self.rings addObject:[[Ring alloc] initWithPeripheral:peripheral delegate:self]];
+    _ringBeingConnected=   [[Ring alloc] initWithPeripheral:peripheral delegate:self];
     [cm connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey: [NSNumber numberWithBool:YES]}];
     NSLog(@"Attempting to connect to a Specdrums Ring.");
     
@@ -140,33 +337,39 @@
 
 - (void) centralManager:(CBCentralManager*)central didConnectPeripheral:(CBPeripheral*)peripheral{
     
-    for (Ring* sp in self.rings)
-    {
-        
-        if ([sp.peripheral isEqual:peripheral])
-        {
-            if(peripheral.services){
-                NSLog(@"Did connect to existing peripheral %@", peripheral.name);
-                [sp peripheral:peripheral didDiscoverServices:nil]; //already discovered services, DO NOT re-discover. Just pass along the peripheral.
-                //[currentPeripheral peripheral:peripheral didDiscoverServices:nil]; //already discovered services, DO NOT re-discover. Just pass along the peripheral.
-            }
-            
-            else{
+    
+    Ring *sp = _ringBeingConnected;
+    [self.rings addObject:sp];
+//    
+//    for (Ring* sp in self.rings)
+//    {
+//        
+//        if ([sp.peripheral isEqual:peripheral])
+//        {
+//            if(peripheral.services){
+//                NSLog(@"Did connect to existing peripheral %@", peripheral.name);
+//                [sp peripheral:peripheral didDiscoverServices:nil]; //already discovered services, DO NOT re-discover. Just pass along the peripheral.
+//                //[currentPeripheral peripheral:peripheral didDiscoverServices:nil]; //already discovered services, DO NOT re-discover. Just pass along the peripheral.
+//            }
+//            
+//            else{
                 NSLog(@"Did connect peripheral %@", peripheral.name);
                 [sp didConnect];
                 [self.delegate finishedScanning];
                 //[currentPeripheral didConnect];
                 
-            }
+//            }
             return;
-        }
-    }
+//        }
+//    }
 }
 
-- (void)didFinishFindingCharacteristics
+- (void)didFinishFindingCharacteristicsForRing:(Ring*)ring
 {
     // indicate that it finished connecting
-    [self.delegate numberOfRingsIsNow:(int)[self.rings count]];
+    ring.wasInitialized = YES;
+    [self.delegate numberOfRingsIsNow:(int)[self.rings count] ring:ring wasAdded:YES];
+    
 
 }
 
@@ -183,11 +386,13 @@
         if ([sp.peripheral isEqual:peripheral])
         {
             [sp didDisconnect];
+            
+            [self.delegate numberOfRingsIsNow:((int)[self.rings count]-1) ring:sp wasAdded:NO];
             [self.rings removeObject:sp];
-            [self.delegate numberOfRingsIsNow:(int)[self.rings count]];
             return;
         }
     }
+    [central connectPeripheral:peripheral options:@{}];
 }
 
 #pragma mark RingDelegate
@@ -232,6 +437,7 @@
         uint8_t greenLow    = bytes[3];
         uint8_t blueHigh    = bytes[4];
         uint8_t blueLow     = bytes[5];
+        uint8_t intensity   = bytes[6];
         
         // Form RGB values
         uint16_t red    = redHigh<<8 | redLow;
@@ -244,7 +450,9 @@
         g = [self normalize:green];
         b = [self normalize:blue];
         
-        [self.delegate receivedRed:r green:g blue:b fromRingNumbered:idx];
+        TapIntensity tapIntensity = (TapIntensity)intensity;
+        
+        [self.delegate receivedRed:r green:g blue:b tapIntensity:tapIntensity fromRingNumbered:idx];
 
     }
     else if ([UUID isEqual:batUUID])

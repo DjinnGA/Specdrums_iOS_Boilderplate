@@ -14,7 +14,7 @@
 
 BOOL isScanning;
 int numRings;
-BlinkColor blinkColor;
+RGBLEDState blinkColor;
 
 @implementation ViewController
 
@@ -35,41 +35,41 @@ BlinkColor blinkColor;
     self.classifiedColorView.layer.cornerRadius = 75;
     
     // other
-    blinkColor = BlackBlink;
+    blinkColor = RGBLEDBlack;
     numRings = 0;
     
     
 }
 
--(UIColor*)colorForBlinkColor:(BlinkColor)color
+-(UIColor*)colorForBlinkColor:(RGBLEDState)color
 {
     switch (color)
     {
-        case NoBlink:
+        case RGBLEDNone:
             return [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
             break;
-        case BlackBlink:
+        case RGBLEDBlack:
             return [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
             break;
-        case RedBlink:
+        case RGBLEDRed:
             return [UIColor colorWithRed:1.0 green:0 blue:0 alpha:1.0];
             break;
-        case GreenBlink:
+        case RGBLEDGreen:
             return [UIColor colorWithRed:0 green:1.0 blue:0 alpha:1.0];
             break;
-        case BlueBlink:
+        case RGBLEDBlue:
             return [UIColor colorWithRed:0 green:0 blue:1.0 alpha:1.0];
             break;
-        case YellowBlink:
+        case RGBLEDYellow:
             return [UIColor colorWithRed:1.0 green:1.0 blue:0 alpha:1.0];
             break;
-        case CyanBlink:
+        case RGBLEDCyan:
             return [UIColor colorWithRed:0 green:1.0 blue:1.0 alpha:1.0];
             break;
-        case PurpleBlink:
+        case RGBLEDPurple:
             return [UIColor colorWithRed:1.0 green:0 blue:1.0 alpha:1.0];
             break;
-        case WhiteBlink:
+        case RGBLEDWhite:
             return [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
             break;
         default:
@@ -121,8 +121,8 @@ BlinkColor blinkColor;
     [self.numRingsLabel setText:[[NSNumber numberWithInt:num] stringValue]];
     
     // indicate blink color as black
-    blinkColor = BlackBlink;
-    [self.blinkColorView setBackgroundColor:[self colorForBlinkColor:BlackBlink]];
+    blinkColor = RGBLEDBlack;
+    [self.blinkColorView setBackgroundColor:[self colorForBlinkColor:RGBLEDBlack]];
 }
 -(void)beganScanning
 {

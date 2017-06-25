@@ -34,17 +34,35 @@ typedef enum {
 - (Ring*)ringOfIdx:(int)idx;
 - (Ring*)specdrumsPeripheralForCBPeripheral:(CBPeripheral*)p;
 - (void)removeRingAtIdx:(int)idx;
+- (void)removeRing:(Ring*)ring;
+-(void)sendRGBLEDState:(RGBLEDState)state forRing:(Ring*)ring;
 -(void)sendRGBLEDState:(RGBLEDState)state forRingAtIdx:(int)idx;
+-(void)sendAppMode:(AppMode)appMode forRingAtIdx:(int)idx;
+- (void)sendAppMode:(AppMode)appMode toRing:(Ring*)ring;
+-(void)sendHP:(BOOL)hpFilterOn tapThresh:(float)tapThresh timeLimit:(float)timeLimit forRingAtIdx:(int)idx;
+-(void)sendHP:(BOOL)hpFilterOn tapThresh:(float)tapThresh timeLimit:(float)timeLimit toRing:(Ring*)ring;
+
+-(void)setPitches:(NSMutableArray<NSNumber*>*)pitches toSample:(int)sampleIdx;
+-(void)removeSample:(int)sampleIdx;
+-(void)setColorWithX:(float)x y:(float)y z:(float)z toSample:(int)sampleIdx;
+-(void)removeAllSamples;
+
++(BOOL)defaultHP;
++(float)defaultTapThresh;
++(float)defaultTimeLimit;
+
+// added api's
+- (NSArray*)getConnectedPeripherals;
 
 @end
 
 // Definition of the delegate's interface
 @protocol BLEHandlerDelegate <NSObject>
 
-- (void)numberOfRingsIsNow:(int)num;
+- (void)numberOfRingsIsNow:(int)num ring:(Ring*)ring wasAdded:(BOOL)wasAdded;
 - (void)beganScanning;
 - (void)finishedScanning;
-- (void)receivedRed:(float)red green:(float)green blue:(float)blue fromRingNumbered:(int)idx;
+- (void)receivedRed:(float)red green:(float)green blue:(float)blue tapIntensity:(TapIntensity)tapIntensity fromRingNumbered:(int)idx;
 - (void)receivedBatteryLevel:(NSNumber*)batteryLevel fromRingNumbered:(int)idx;
 - (void)receivedLowBatteryFromRingNumbered:(int)idx;
 

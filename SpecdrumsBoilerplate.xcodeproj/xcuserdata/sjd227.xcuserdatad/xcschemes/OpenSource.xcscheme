@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C8668B7F1D8E5FCC0009D10D"
-               BuildableName = "OpenSource.app"
-               BlueprintName = "OpenSource"
-               ReferencedContainer = "container:OpenSource.xcodeproj">
+               BuildableName = "SpecdrumsBoilerplate.app"
+               BlueprintName = "SpecdrumsBoilerplate"
+               ReferencedContainer = "container:SpecdrumsBoilerplate.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C8668B981D8E5FCD0009D10D"
-               BuildableName = "OpenSourceTests.xctest"
-               BlueprintName = "OpenSourceTests"
-               ReferencedContainer = "container:OpenSource.xcodeproj">
+               BuildableName = "SpecdrumsBoilerplate.xctest"
+               BlueprintName = "SpecdrumsBoilerplateTests"
+               ReferencedContainer = "container:SpecdrumsBoilerplate.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C8668BA31D8E5FCD0009D10D"
-               BuildableName = "OpenSourceUITests.xctest"
-               BlueprintName = "OpenSourceUITests"
-               ReferencedContainer = "container:OpenSource.xcodeproj">
+               BuildableName = "SpecdrumsBoilerplate.xctest"
+               BlueprintName = "SpecdrumsBoilerplateUITests"
+               ReferencedContainer = "container:SpecdrumsBoilerplate.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C8668B7F1D8E5FCC0009D10D"
-            BuildableName = "OpenSource.app"
-            BlueprintName = "OpenSource"
-            ReferencedContainer = "container:OpenSource.xcodeproj">
+            BuildableName = "SpecdrumsBoilerplate.app"
+            BlueprintName = "SpecdrumsBoilerplate"
+            ReferencedContainer = "container:SpecdrumsBoilerplate.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C8668B7F1D8E5FCC0009D10D"
-            BuildableName = "OpenSource.app"
-            BlueprintName = "OpenSource"
-            ReferencedContainer = "container:OpenSource.xcodeproj">
+            BuildableName = "SpecdrumsBoilerplate.app"
+            BlueprintName = "SpecdrumsBoilerplate"
+            ReferencedContainer = "container:SpecdrumsBoilerplate.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C8668B7F1D8E5FCC0009D10D"
-            BuildableName = "OpenSource.app"
-            BlueprintName = "OpenSource"
-            ReferencedContainer = "container:OpenSource.xcodeproj">
+            BuildableName = "SpecdrumsBoilerplate.app"
+            BlueprintName = "SpecdrumsBoilerplate"
+            ReferencedContainer = "container:SpecdrumsBoilerplate.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

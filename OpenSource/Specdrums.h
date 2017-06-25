@@ -9,32 +9,40 @@
 #import <UIKit/UIKit.h>
 #import "BLEHandler.h"
 #import "Battery.h"
+#import "Colors.h"
 
 @protocol SpecdrumsDelegate;
 
 @interface Specdrums : NSObject <BLEHandlerDelegate>
 
+// class properties
 @property BLEHandler *ble;
 @property (nonatomic, weak) id<SpecdrumsDelegate> delegate;
--(id)initWithDelegate:(id<SpecdrumsDelegate>)delegate;
-- (void) scanForRings;
+
+
+
+// BLE connection handling methods
+- (id)initWithDelegate:(id<SpecdrumsDelegate>)delegate;
+- (void)scanForRings;
 - (void)stopScanningForRings;
 - (void)removeRingNumbered:(int)num;
+- (void)removeRing:(Ring*)ring;
 
-// enums
-typedef enum {
-    NoBlink = 0,
-    BlackBlink,
-    RedBlink,
-    GreenBlink,
-    BlueBlink,
-    YellowBlink,
-    CyanBlink,
-    PurpleBlink,
-    WhiteBlink,
-} BlinkColor;
+// ring command methods
+- (void)assignBlinkColor:(RGBLEDState)color toRing:(Ring*)ring;
+- (void)assignBlinkColor:(RGBLEDState)color toRingNumbered:(int)num;
+- (void)assignAllAppMode:(AppMode)appMode;
+- (void)assignAppMode:(AppMode)appMode toRing:(Ring*)ring;
+- (BOOL)checkForConnectedRings;
+- (void)assignAllRingsHP:(BOOL)hpFilterOn tapThresh:(float)tapThresh timeLimit:(float)timeLimit;
+- (void)assignHP:(BOOL)hpFilterOn tapThresh:(float)tapThresh timeLimit:(float)timeLimit toRing:(Ring*)ring;
 
-- (void)assignBlinkColor:(BlinkColor)color toRingNumbered:(int)num;
+// bluetooth MIDI commands (advanced)
+-(void)setPitches:(NSMutableArray<NSNumber*>*)pitches toSample:(int)sampleIdx;
+-(void)removeSample:(int)sampleIdx;
+-(void)setColorWithX:(float)x y:(float)y z:(float)z toSample:(int)sampleIdx;
+-(void)removeAllSamples;
+-(NSString*)getUniqueRingNames;
 
 
 @end
@@ -42,11 +50,17 @@ typedef enum {
 // Definition of the delegate's interface
 @protocol SpecdrumsDelegate <NSObject>
 
--(void)receivedRed:(float)red green:(float)green blue:(float)blue fromRingNumbered:(int)idx;
+// BLE connection handling methods
+-(void)beganScanning;
+-(void)finishedScanning;
+-(void)numberOfRingsIsNow:(int)num ring:(Ring*)ring wasAdded:(BOOL)wasAdded;
+
+// BLE data receiving methods
+-(void)receivedRed:(float)red green:(float)green blue:(float)blue tapIntensity:(TapIntensity)tapIntensity fromRingNumbered:(int)idx;
 - (void)receivedBatteryLevel:(NSNumber*)batteryLevel fromRingNumbered:(int)idx;
 - (void)receivedLowBatteryFromRingNumbered:(int)idx;
 
--(void)numberOfRingsIsNow:(int)num;
--(void)beganScanning;
--(void)finishedScanning;
+
+
+
 @end
